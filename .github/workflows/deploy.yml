@@ -1,0 +1,26 @@
+name: Deploy to App Engine
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+    - name: Deploy to App Engine
+      uses: google-github-actions/deploy-appengine@v0.4.0
+      with:
+        version: ${{ github.sha }}
+        promote: true
