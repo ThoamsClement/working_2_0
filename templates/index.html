@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Timesheets</h1>
+<p>Total Hours: {{ total_hours }}</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Job Name</th>
+            <th>Description</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Total Hours</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for timesheet in timesheets %}
+        <tr>
+            <td>{{ timesheet.job_name }}</td>
+            <td>{{ timesheet.description }}</td>
+            <td>{{ timesheet.start_time }}</td>
+            <td>{{ timesheet.end_time }}</td>
+            <td>{{ timesheet.total_hours }}</td>
+            <td>
+                {% if current_user.is_authenticated %}
+                <form action="{{ url_for('delete_timesheet', timesheet_id=timesheet.id) }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('add_timesheet') }}" class="btn btn-primary">Add Timesheet</a>
+{% endblock %}
