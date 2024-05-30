@@ -1,9 +1,9 @@
-name: Deploy to GCP App Engine
+name: Deploy to GCP
 
 on:
   push:
     branches:
-      - main  
+      - main  # 触发部署的分支
 
 jobs:
   deploy:
@@ -19,6 +19,16 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
 
+    - name: Configure Docker
+      run: gcloud auth configure-docker
+
+    - name: Build Docker image
+      run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app:$GITHUB_SHA .
+
+    - name: Push Docker image
+      run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app:$GITHUB_SHA
+
     - name: Deploy to App Engine
-      run: |
-        gcloud app deploy --quiet
+      run: gcloud app deploy --quiet
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
