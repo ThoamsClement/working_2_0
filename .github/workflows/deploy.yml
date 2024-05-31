@@ -13,12 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-<<<<<<< HEAD
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
 
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@v0.4.0
@@ -32,17 +31,3 @@ jobs:
             --version=your_version \
             --quiet \
             --env-vars=SECRET_KEY="your_secret_key",DATABASE_URL="sqlite:///../instance/timesheets.db"
-=======
-    - name: Set up Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0.2.1
-      with:
-        project_id: ${{ secrets.GCP_PROJECT }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-
-    - name: Set Google Cloud project ID
-      run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
-
-    - name: Deploy to App Engine
-      run: |
-        gcloud app deploy app.yaml --quiet
->>>>>>> 2095c85ade1b16c2131b4c065e6e839e9f736c2d
