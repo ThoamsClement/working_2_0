@@ -1,4 +1,8 @@
-runtime: python39
+runtime: python312
+
+env_variables:
+  SECRET_KEY: "39048u2joirq@@$i0910"
+  DATABASE_URL: "sqlite:///../instance/timesheets.db"
 
 handlers:
   - url: /static
