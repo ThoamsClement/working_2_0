@@ -1,9 +1,7 @@
 runtime: python312
-entrypoint: gunicorn -b :$PORT wsgi:app
+entrypoint: gunicorn -b :$PORT main:server
 
-env_variables:
-  SECRET_KEY: "39048u2joirq@@$i0910"
-  DATABASE_URL: "sqlite:///../instance/timesheets.db"
+env: flex
 
 
 handlers:
