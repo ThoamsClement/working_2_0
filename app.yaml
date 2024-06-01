@@ -1,4 +1,5 @@
 runtime: python312
+entrypoint: gunicorn -b :$PORT main:app
 
 env_variables:
   SECRET_KEY: "39048u2joirq@@$i0910"
