@@ -24,7 +24,7 @@
             <td>{{ timesheet.total_hours }}</td>
             <td>
                 {% if current_user.is_authenticated %}
-                <form action="{{ url_for('delete_timesheet', timesheet_id=timesheet.id) }}" method="post" style="display:inline;">
+                <form action="{{ url_for('main.delete_timesheet', timesheet_id=timesheet.id) }}" method="post" style="display:inline;">
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                 </form>
                 {% endif %}
@@ -33,5 +33,5 @@
         {% endfor %}
     </tbody>
 </table>
-<a href="{{ url_for('add_timesheet') }}" class="btn btn-primary">Add Timesheet</a>
+<a href="{{ url_for('main.add_timesheet') }}" class="btn btn-primary">Add Timesheet</a>
 {% endblock %}

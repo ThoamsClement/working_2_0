@@ -40,6 +40,13 @@ def add_timesheet():
         return redirect(url_for('main.index'))
 
     return render_template('add_timesheets.html')
+@main.route('/delete_timesheet/<int:timesheet_id>', methods=['POST'])
+def delete_timesheet(timesheet_id):
+    timesheet = Timesheet.query.get_or_404(timesheet_id)
+    db.session.delete(timesheet)
+    db.session.commit()
+    flash('Timesheet deleted successfully', 'success')
+    return redirect(url_for('main.view_timesheets'))
 
 @main.route('/view_timesheets')
 def view_timesheets():
@@ -76,6 +83,8 @@ def login():
             return redirect(url_for('main.index'))
         else:
             flash('Invalid username or password')
+            return redirect(url_for('auth.login'))  # 返回登录页面，避免重定向循环
+
     return render_template('login.html')
 
 @auth.route('/logout')

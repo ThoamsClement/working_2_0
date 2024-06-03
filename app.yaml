@@ -1,5 +1,5 @@
 runtime: python312
-entrypoint: gunicorn -b :$PORT main:server
+entrypoint: gunicorn wsgi:app
 
 env: flex
 

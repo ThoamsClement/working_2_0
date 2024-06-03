@@ -23,7 +23,7 @@
         <td>{{ timesheet.total_hours }}</td>
         <td>
           {% if current_user.is_authenticated %}
-          <form action="{{ url_for('delete_timesheet', timesheet_id=timesheet.id) }}" method="post" id="delete-form-{{ timesheet.id }}">
+          <form action="{{ url_for('main.delete_timesheet', timesheet_id=timesheet.id) }}" method="post" id="delete-form-{{ timesheet.id }}">
             <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ timesheet.id }})">Delete</button>
           </form>
           {% endif %}
@@ -36,8 +36,9 @@
   <script>
     function confirmDelete(timesheetId) {
       if (confirm("Are you sure you want to delete this timesheet?")) {
-        document.getElementById('delete-form-' + timesheetId).submit();
+          var form = document.querySelector('#delete-form-' + timesheetId);
+          form.submit();
+        }
       }
-    }
   </script>
 {% endblock %}
