@@ -1,7 +1,6 @@
 runtime: python312
 entrypoint: gunicorn wsgi:app
 
-env: flex
 
 
 handlers:
